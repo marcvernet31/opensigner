@@ -60,3 +60,7 @@ docker-compose -f docker-compose.yml -f docker-compose.map.db.ports.yml up --bui
 ```
 
 For the full reference, check out [`docker-compose.yml`](/openfort-xyz/opensigner/blob/main/docker-compose.yml).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
