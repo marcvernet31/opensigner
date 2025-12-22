@@ -1,4 +1,4 @@
-.PHONY: all build run clean docs run-auth-server build-auth-server stop-auth-server run-cold-storage build-cold-storage stop-cold-storage
+.PHONY: all build run clean docs run-auth-server build-auth-server stop-auth-server run-cold-storage build-cold-storage stop-cold-storage run-iframe stop-iframe
 
 all: build run
 
@@ -7,6 +7,7 @@ build:
 		--project-directory . \
 		-f deployments/auth-server/docker-compose.yml \
 		-f deployments/cold-storage/docker-compose.yml \
+		-f deployments/iframe/docker-compose.yml \
 		-f docker-compose.yml \
 		build postgres auth_service hot_storage mysql cold_storage iframe iframe-sample
 
@@ -16,6 +17,7 @@ clean:
 		--project-directory . \
 		-f deployments/auth-server/docker-compose.yml \
 		-f deployments/cold-storage/docker-compose.yml \
+		-f deployments/iframe/docker-compose.yml \
 		-f docker-compose.yml \
 		down --rmi 'all' -v
 
@@ -24,6 +26,7 @@ run:
 		--project-directory . \
 		-f deployments/auth-server/docker-compose.yml \
 		-f deployments/cold-storage/docker-compose.yml \
+		-f deployments/iframe/docker-compose.yml \
 		-f docker-compose.yml \
 		up -d postgres auth_service hot_storage mysql cold_storage iframe iframe-sample
 
@@ -49,3 +52,10 @@ build-cold-storage:
 
 stop-cold-storage:
 	docker compose --project-directory . -f deployments/cold-storage/docker-compose.yml down
+
+# Iframe Standalone Deployment
+run-iframe:
+	docker compose --project-directory . -f deployments/iframe/docker-compose.yml up -d
+
+stop-iframe:
+	docker compose --project-directory . -f deployments/iframe/docker-compose.yml down

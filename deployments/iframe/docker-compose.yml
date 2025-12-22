@@ -1,0 +1,21 @@
+services:
+  iframe:
+    container_name: iframe
+    platform: linux/amd64
+    volumes:
+      - ./iframe/iframe_nginx.conf:/etc/nginx/conf.d/default.conf
+    image: ghcr.io/openfort-xyz/iframe:latest
+    environment:
+      PORT: ${IFRAME_CONTAINER_PORT:-5173}
+    networks:
+      - db_network
+    expose:
+      - "5173"
+    ports:
+      - "${IFRAME_HOST_PORT:-7050}:${IFRAME_CONTAINER_PORT:-5173}"
+    restart: unless-stopped
+
+networks:
+  db_network:
+    driver: bridge
+
